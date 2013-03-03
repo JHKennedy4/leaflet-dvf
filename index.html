@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="leaflet-dvf : Leaflet Data Visualization Framework" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>leaflet-dvf</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/humangeo/leaflet-dvf">View on GitHub</a>
+
+          <h1 id="project_title">leaflet-dvf</h1>
+          <h2 id="project_tagline">Leaflet Data Visualization Framework</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/humangeo/leaflet-dvf/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/humangeo/leaflet-dvf/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>leaflet-dvf</h1>
+
+<p>Leaflet Data Visualization Framework (DVF)</p>
+
+<p>The Leaflet DVF is an extension to <a href="http://www.cloudmade.com">CloudMade</a>'s <a href="http://leafletjs.com">Leaflet</a> JavaScript mapping library.
+The primary goal of the framework is to simplify data visualization and thematic mapping.</p>
+
+<p>It includes:</p>
+
+<p>New marker types (see the markers example below):</p>
+
+<ul>
+<li>RegularPolygonMarker - create N-sided shapes like triangles, squares, hexagons, etc.</li>
+<li>StarMarker - create stars with N points</li>
+<li>ChartMarkers - useful for analyzing multiple data properties at each location:
+
+<ul>
+<li>BarChartMarker</li>
+<li>PieChartMarker</li>
+<li>RadialBarChartMarker</li>
+<li>CoxcombChartMarker</li>
+<li>RadialMeterMarker</li>
+<li>StackedRegularPolygonMarker - a variation on the bar chart</li>
+</ul>
+</li>
+</ul><p>Functions for easily mapping data properties to Leaflet style values:</p>
+
+<ul>
+<li>LinearFunction</li>
+<li>Color functions:
+
+<ul>
+<li>HSLHueFunction - vary the output hue based on a data property</li>
+<li>HSLSaturationFunction - vary the output saturation based on a data property</li>
+<li>HSLLuminosityFunction - vary the output lightness/luminosity based on a data property</li>
+<li>Various RGB functions</li>
+</ul>
+</li>
+<li>PiecewiseFunction - use multiple LinearFunction classes in sequence (e.g. vary a color from white to yellow, yellow to red)</li>
+</ul><p>New layer types that simplify reading and visualizing any JSON-based data structure:</p>
+
+<ul>
+<li>DataLayer</li>
+<li>ChartDataLayer</li>
+<li>ChoroplethDataLayer</li>
+<li>Others</li>
+</ul><p>GeoJSON polygons for countries and US states to support Choropleth mapping.  Countries are generated from:  <a href="https://github.com/johan/world.geo.json">https://github.com/johan/world.geo.json</a>.
+Just include these JavaScript files if you plan to build a country or US state choropleth.<br>
+Polygons are indexed via a state or country code and lookups are created to map various state/country code formats to the default index format.</p>
+
+<p>Automatic legend generation and a simple legend control.
+To generate a legend, just call getLegend on any DataLayer, or use the provided legend control and the legend will be displayed automatically.</p>
+
+<p>Check out the examples:</p>
+
+<p>New Marker Types:</p>
+
+<ul>
+<li><a href="http://htmlpreview.github.com/?https://github.com/humangeo/leaflet-dvf/blob/master/examples/html/markers.html">Markers</a></li>
+</ul><p>Proportional Symbol:</p>
+
+<ul>
+<li><a href="http://htmlpreview.github.com/?https://github.com/humangeo/leaflet-dvf/blob/master/examples/html/earthquakes.html">USGS Earthquakes</a></li>
+<li><a href="http://htmlpreview.github.com/?https://github.com/humangeo/leaflet-dvf/blob/master/examples/html/meetups.html">Meetup Finder</a></li>
+<li><a href="http://htmlpreview.github.com/?https://github.com/humangeo/leaflet-dvf/blob/master/examples/html/weather.html">Weather</a></li>
+</ul><p>Choropleth Mapping:</p>
+
+<ul>
+<li><a href="http://htmlpreview.github.com/?https://github.com/humangeo/leaflet-dvf/blob/master/examples/html/incomelevels.html">WorldBank and UN Data</a></li>
+<li><a href="http://htmlpreview.github.com/?https://github.com/humangeo/leaflet-dvf/blob/master/examples/html/election2012.html">Election 2012 Polling</a></li>
+<li><a href="http://htmlpreview.github.com/?https://github.com/humangeo/leaflet-dvf/blob/master/examples/html/election2012results.html">2008 vs 2012 Election Results</a></li>
+<li><a href="http://htmlpreview.github.com/?https://github.com/humangeo/leaflet-dvf/blob/master/examples/html/uselectiondata.html">2008 Election Results</a></li>
+<li><a href="http://htmlpreview.github.com/?https://github.com/humangeo/leaflet-dvf/blob/master/examples/html/geohashes.html">Geohashes</a></li>
+</ul><p>Tutorials coming soon to <a href="http://www.thehumangeo.com/">HumanGeo</a>'s <a href="http://blog.thehumangeo.com">blog</a></p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">leaflet-dvf maintained by <a href="https://github.com/humangeo">humangeo</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
