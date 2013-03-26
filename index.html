@@ -31,9 +31,9 @@
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
-        <h1>leaflet-dvf</h1>
+        <h1>Leaflet Data Visualization Framework (DVF)</h1>
 
-<p>Leaflet Data Visualization Framework (DVF)</p>
+<h2>Overview</h2>
 
 <p>The Leaflet DVF is an extension to <a href="http://www.cloudmade.com">CloudMade</a>'s <a href="http://leafletjs.com">Leaflet</a> JavaScript mapping library.
 The primary goal of the framework is to simplify data visualization and thematic mapping.</p>
@@ -86,7 +86,7 @@ Polygons are indexed via a state or country code and lookups are created to map 
 <p>Automatic legend generation and a simple legend control.
 To generate a legend, just call getLegend on any DataLayer, or use the provided legend control and the legend will be displayed automatically.</p>
 
-<p>Check out the examples:</p>
+<h2>Examples</h2>
 
 <p>New Marker Types:</p>
 
@@ -101,12 +101,634 @@ To generate a legend, just call getLegend on any DataLayer, or use the provided 
 </ul><p>Choropleth Mapping:</p>
 
 <ul>
+<li><a href="http://humangeo.github.com/leaflet-dvf/examples/html/colors.html">Color Functions</a></li>
 <li><a href="http://humangeo.github.com/leaflet-dvf/examples/html/incomelevels.html">WorldBank and UN Data</a></li>
 <li><a href="http://humangeo.github.com/leaflet-dvf/examples/html/election2012.html">Election 2012 Polling</a></li>
 <li><a href="http://humangeo.github.com/leaflet-dvf/examples/html/election2012results.html">2008 vs 2012 Election Results</a></li>
 <li><a href="http://humangeo.github.com/leaflet-dvf/examples/html/uselectiondata.html">2008 Election Results</a></li>
 <li><a href="http://humangeo.github.com/leaflet-dvf/examples/html/geohashes.html">Geohashes</a></li>
 </ul><p>Tutorials coming soon to <a href="http://www.thehumangeo.com/">HumanGeo</a>'s <a href="http://blog.thehumangeo.com">blog</a></p>
+
+<h1>Documentation</h1>
+
+<blockquote>
+<p>A work in progress ...</p>
+</blockquote>
+
+<h2>Markers</h2>
+
+<blockquote>
+<p>The framework adds several new marker types geared towards dynamic data visualization.  See the <a href="http://humangeo.github.com/leaflet-dvf/examples/html/markers.html">Markers</a> example for an illustration of each of these markers.</p>
+</blockquote>
+
+<h3>L.RegularPolygonMarker</h3>
+
+<blockquote>
+<p>Creates an N-sided marker</p>
+</blockquote>
+
+<h4>Usage</h4>
+
+<p><code>L.RegularPolygonMarker(&lt;LatLng&gt; LatLng, &lt;Marker options&gt; options?);</code></p>
+
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">marker</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">L</span><span class="p">.</span><span class="nx">RegularPolygonMarker</span><span class="p">(</span><span class="k">new</span> <span class="nx">L</span><span class="p">.</span><span class="nx">LatLng</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">{</span>
+    <span class="nx">numberOfSides</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="nx">rotation</span><span class="o">:</span> <span class="mf">60.0</span><span class="p">,</span>
+    <span class="nx">radius</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="c1">// L.Path style options</span>
+    <span class="p">...</span>
+<span class="p">});</span>
+
+<span class="nx">map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">marker</span><span class="p">);</span>
+</pre></div>
+
+<h4>Options</h4>
+
+<table>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>numberOfSides</td>
+<td>Number</td>
+<td>3</td>
+<td>The number of sides the marker should have</td>
+</tr>
+<tr>
+<td>rotation</td>
+<td>Number</td>
+<td>0.0</td>
+<td>The angle in degrees that the marker should be rotated</td>
+</tr>
+<tr>
+<td>radius OR radiusX, radiusY</td>
+<td>Number</td>
+<td>10</td>
+<td>The radius of the marker in pixels</td>
+</tr>
+<tr>
+<td>innerRadius OR innerRadiusX, innerRadiusY</td>
+<td>Number</td>
+<td>null</td>
+<td>The inner radius of the marker in pixels.  Specifying an innerRadius will produce a regular polygon with a hole in the middle.</td>
+</tr>
+</table><h3>L.StarMarker</h3>
+
+<blockquote>
+<p>Creates a star-shaped marker with N-points</p>
+</blockquote>
+
+<h4>Usage</h4>
+
+<p><code>L.StarMarker(&lt;LatLng&gt; LatLng, &lt;StarMarker options&gt; options?);</code></p>
+
+<h4>Options (in addition to the L.RegularPolygonMarker options defined above)</h4>
+
+<table>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>numberOfPoints</td>
+<td>Number</td>
+<td>5</td>
+<td>The number of points the star should have</td>
+</tr>
+</table><h3>ChartMarkers</h3>
+
+<blockquote>
+<p>Display dynamic charts as markers</p>
+</blockquote>
+
+<p>L.BarChartMarker
+L.RadialBarChartMarker
+L.PieChartMarker
+L.CoxcombChartMarker
+L.StackedRegularPolygonMarker</p>
+
+<h4>Usage</h4>
+
+<p><code>L.BarChartMarker(&lt;LatLng&gt; LatLng, &lt;Chart options&gt; options?);</code>
+<code>L.RadialBarChartMarker(&lt;LatLng&gt; LatLng, &lt;Chart options&gt; options?);</code>
+<code>L.PieChartMarker(&lt;LatLng&gt; LatLng, &lt;Chart options&gt; options?);</code>
+<code>L.CoxcombChartMarker(&lt;LatLng&gt; LatLng, &lt;Chart options&gt; options?);</code>
+<code>L.StackedRegularPolygonMarker(&lt;LatLng&gt; LatLng, &lt;Chart options&gt; options?);</code>
+<code>L.RadialMeterMarker(&lt;LatLng&gt; LatLng, &lt;Chart options&gt; options?);</code></p>
+
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">options</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s1">'dataPoint1'</span><span class="o">:</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="mi">20</span><span class="p">,</span>
+        <span class="s1">'dataPoint2'</span><span class="o">:</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="mi">20</span><span class="p">,</span>
+        <span class="s1">'dataPoint3'</span><span class="o">:</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="mi">20</span><span class="p">,</span>
+        <span class="s1">'dataPoint4'</span><span class="o">:</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="mi">20</span>
+    <span class="p">},</span>
+    <span class="nx">chartOptions</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s1">'dataPoint1'</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">fillColor</span><span class="o">:</span> <span class="s1">'#FEE5D9'</span><span class="p">,</span>
+            <span class="nx">minValue</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nx">maxValue</span><span class="o">:</span> <span class="mi">20</span><span class="p">,</span>
+            <span class="nx">maxHeight</span><span class="o">:</span> <span class="mi">20</span><span class="p">,</span>
+            <span class="nx">displayText</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="nx">value</span><span class="p">.</span><span class="nx">toFixed</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="s1">'dataPoint2'</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">fillColor</span><span class="o">:</span> <span class="s1">'#FCAE91'</span><span class="p">,</span>
+            <span class="nx">minValue</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nx">maxValue</span><span class="o">:</span> <span class="mi">20</span><span class="p">,</span>
+            <span class="nx">maxHeight</span><span class="o">:</span> <span class="mi">20</span><span class="p">,</span>
+            <span class="nx">displayText</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="nx">value</span><span class="p">.</span><span class="nx">toFixed</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="s1">'dataPoint3'</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">fillColor</span><span class="o">:</span> <span class="s1">'#FB6A4A'</span><span class="p">,</span>
+            <span class="nx">minValue</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nx">maxValue</span><span class="o">:</span> <span class="mi">20</span><span class="p">,</span>
+            <span class="nx">maxHeight</span><span class="o">:</span> <span class="mi">20</span><span class="p">,</span>
+            <span class="nx">displayText</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="nx">value</span><span class="p">.</span><span class="nx">toFixed</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="s1">'dataPoint4'</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">fillColor</span><span class="o">:</span> <span class="s1">'#CB181D'</span><span class="p">,</span>
+            <span class="nx">minValue</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nx">maxValue</span><span class="o">:</span> <span class="mi">20</span><span class="p">,</span>
+            <span class="nx">maxHeight</span><span class="o">:</span> <span class="mi">20</span><span class="p">,</span>
+            <span class="nx">displayText</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="nx">value</span><span class="p">.</span><span class="nx">toFixed</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nx">weight</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nx">color</span><span class="o">:</span> <span class="s1">'#000000'</span><span class="p">,</span>
+    <span class="p">...</span> <span class="c1">// Other L.Path style options</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">barChartMarker</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">L</span><span class="p">.</span><span class="nx">BarChartMarker</span><span class="p">(</span><span class="k">new</span> <span class="nx">L</span><span class="p">.</span><span class="nx">LatLng</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="nx">options</span><span class="p">);</span>
+</pre></div>
+
+<h4>Options (in addition to the <em>L.Path</em> style options)</h4>
+
+<table>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>data</td>
+<td>Object</td>
+<td>null</td>
+<td>A set of key/value pairs that provides a data value for each property displayed by the marker</td>
+</tr>
+<tr>
+<td>chartOptions</td>
+<td>Object</td>
+<td>null</td>
+<td>A set of key/value paris that defines the options associated with each data property displayed by the marker.</td>
+</tr>
+</table><h2>Utility Functions</h2>
+
+<blockquote>
+<p>Classes for mapping data properties to Leaflet style values</p>
+</blockquote>
+
+<h3>L.LinearFunction</h3>
+
+<blockquote>
+<p>Used to map a data property from one scale to another</p>
+</blockquote>
+
+<h4>Usage</h4>
+
+<p><code>L.LinearFunction(&lt;Number[]|Point&gt; minPoint, &lt;Number[]|Point&gt; maxPoint, &lt;LinearFunction options&gt; options?);</code></p>
+
+<div class="highlight"><pre><span class="c1">// Map a data property that ranges from 0 to 100 to a value between 5 and 20 (e.g. marker radius)</span>
+<span class="kd">var</span> <span class="nx">linearFunction</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">L</span><span class="p">.</span><span class="nx">LinearFunction</span><span class="p">(</span><span class="k">new</span> <span class="nx">L</span><span class="p">.</span><span class="nx">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="k">new</span> <span class="nx">L</span><span class="p">.</span><span class="nx">Point</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">20</span><span class="p">));</span>
+
+<span class="c1">// OR - In addition to L.Point objects, you can also use arrays</span>
+<span class="kd">var</span> <span class="nx">linearFunction</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">L</span><span class="p">.</span><span class="nx">LinearFunction</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">20</span><span class="p">]);</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">linearFunction</span><span class="p">.</span><span class="nx">evaluate</span><span class="p">(</span><span class="mi">10</span><span class="p">));</span>  <span class="c1">// prints 6.5</span>
+</pre></div>
+
+<h4>Options</h4>
+
+<table>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>preProcess</td>
+<td>Function</td>
+<td>null</td>
+<td>A function for pre-processing an input value</td>
+</tr>
+<tr>
+<td>postProcess</td>
+<td>Function</td>
+<td>null</td>
+<td>A function for post-processing an output value</td>
+</tr>
+</table><h3>Color Functions</h3>
+
+<blockquote>
+<p>Used to map a data property to a color.  The framework includes tools for mapping color using Hue, Saturation, and Lightness/Luminosity (HSL) or Red, Green, Blue (RGB) color.  See the <a href="http://humangeo.github.com/leaflet-dvf/examples/html/colors.html">Colors</a> example.</p>
+</blockquote>
+
+<h4>Usage</h4>
+
+<blockquote>
+<p>Change the output hue dynamically based on the input data property<br><em>Useful for producing colors along a rainbow scale (or subset)</em>
+<code>L.HSLHueFunction(&lt;Number[]|Point&gt; minPoint, &lt;Number[]|Point&gt; maxPoint, &lt;HSL options&gt; options?);</code></p>
+
+<p>Change the output saturation dynamically based on the input data property<br><em>Useful for varying between a color and gray</em>
+<code>L.HSLSaturationFunction(&lt;Number[]|Point&gt; minPoint, &lt;Number[]|Point&gt; maxPoint, &lt;HSL options&gt; options?);</code></p>
+
+<p>Change the output luminosity dynamically based on the input data property<br><em>Useful for varying between a color and white</em>
+<code>L.HSLLuminosityFunction(&lt;Number[]|Point&gt; minPoint, &lt;Number[]|Point&gt; maxPoint, &lt;HSL options&gt; options?);</code></p>
+
+<p>Change the output red value dynamically based on the input data property
+<code>L.RGBRedFunction(&lt;Number[]|Point&gt; minPoint, &lt;Number[]|Point&gt; maxPoint, &lt;RGB options&gt; options?);</code></p>
+
+<p>Change the output blue value dynamically based on the input data property
+<code>L.RGBBlueFunction(&lt;Number[]|Point&gt; minPoint, &lt;Number[]|Point&gt; maxPoint, &lt;RGB options&gt; options?);</code></p>
+
+<p>Change the output green value dynamically based on the input data property
+<code>L.RGBGreenFunction(&lt;Number[]|Point&gt; minPoint, &lt;Number[]|Point&gt; maxPoint, &lt;RGB options&gt; options?);</code></p>
+
+<p>Vary the output color dynamically between two RGB colors
+<code>L.RGBColorBlendFunction(&lt;Number&gt; minX, &lt;Number&gt;&gt; maxX, &lt;RGB array&gt; minColor, &lt;RGB array&gt; maxColor);</code></p>
+</blockquote>
+
+<div class="highlight"><pre><span class="c1">// Map a data property that ranges from 0 to 100 to a color between green (hue of 120) and red (hue of 0)</span>
+<span class="kd">var</span> <span class="nx">colorFunction</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">L</span><span class="p">.</span><span class="nx">HSLHueFunction</span><span class="p">(</span><span class="k">new</span> <span class="nx">L</span><span class="p">.</span><span class="nx">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">120</span><span class="p">),</span> <span class="k">new</span> <span class="nx">L</span><span class="p">.</span><span class="nx">Point</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">20</span><span class="p">));</span>
+
+<span class="nx">colorFunction</span><span class="p">.</span><span class="nx">evaluate</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span> <span class="c1">// prints 'hsl(110.00, 100%, 50%)'</span>
+</pre></div>
+
+<h4>Options</h4>
+
+<h5>HSL Options</h5>
+
+<table>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>outputHue</td>
+<td>Number</td>
+<td>0</td>
+<td>The desired output hue <em>NOTE: use with L.HSLSaturationFunction and L.HSLLuminosityFunction</em>
+</td>
+</tr>
+<tr>
+<td>outputSaturation</td>
+<td>String</td>
+<td>'100%'</td>
+<td>The desired output saturation <em>NOTE: use with L.HSLHueFunction and L.HSLLuminosityFunction</em>
+</td>
+</tr>
+<tr>
+<td>outputLuminosity</td>
+<td>String</td>
+<td>'50%'</td>
+<td>The desired width of the legend element <em>NOTE: use with L.HSLHueFunction and L.HSLSaturationFunction</em>
+</td>
+</tr>
+</table><h5>RGB Options</h5>
+
+<table>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>outputRed</td>
+<td>Number (0..255)</td>
+<td>null</td>
+<td>The desired output red value <em>NOTE: use with L.RGBGreenFunction and L.RGBBlueFunction</em>
+</td>
+</tr>
+<tr>
+<td>outputGreen</td>
+<td>Number</td>
+<td>(0..255)</td>
+<td>The desired output green value <em>NOTE: use with L.RGBRedFunction and L.RGBBlueFunction</em>
+</td>
+</tr>
+<tr>
+<td>outputBlue</td>
+<td>Number</td>
+<td>(0..255)</td>
+<td>The desired output blue value <em>NOTE: use with L.RGBRedFunction and L.RGBGreenFunction</em>
+</td>
+</tr>
+</table><h3>L.PiecewiseFunction</h3>
+
+<blockquote>
+<p>Used to combine L.LinearFunction instances for cases where one instance won't suffice</p>
+</blockquote>
+
+<h4>Usage</h4>
+
+<p><code>L.PiecewiseFunction(&lt;LinearFunction[]&gt; functions, &lt;LinearFunction options&gt; options?);</code></p>
+
+<div class="highlight"><pre><span class="c1">// Map a data property that ranges from 0 to 100 to a color that ranges from white to yellow, yellow to red</span>
+<span class="c1">// To vary a color between white and that color, use an HSLLuminosityFunction.  In this case we'll vary</span>
+<span class="c1">// the color from white to yellow until the value reaches 50</span>
+<span class="kd">var</span> <span class="nx">whiteToYellow</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">L</span><span class="p">.</span><span class="nx">HSLLuminosityFunction</span><span class="p">(</span><span class="k">new</span> <span class="nx">L</span><span class="p">.</span><span class="nx">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="k">new</span> <span class="nx">L</span><span class="p">.</span><span class="nx">Point</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="p">{</span>
+    <span class="nx">outputHue</span><span class="o">:</span> <span class="mi">60</span>
+<span class="p">});</span>
+
+<span class="c1">// We'll then vary the color from yellow to red from 50 to 100</span>
+<span class="kd">var</span> <span class="nx">yellowToRed</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">L</span><span class="p">.</span><span class="nx">HSLHueFunction</span><span class="p">(</span><span class="k">new</span> <span class="nx">L</span><span class="p">.</span><span class="nx">Point</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">60</span><span class="p">),</span> <span class="k">new</span> <span class="nx">L</span><span class="p">.</span><span class="nx">Point</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span>
+
+<span class="c1">// Create a new PiecewiseFunction and use this as you would any other LinearFunction</span>
+<span class="kd">var</span> <span class="nx">colorFunction</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">L</span><span class="p">.</span><span class="nx">PiecewiseFunction</span><span class="p">([</span><span class="nx">whiteToYellow</span><span class="p">,</span> <span class="nx">yellowToRed</span><span class="p">]);</span>
+
+<span class="p">...</span>
+</pre></div>
+
+<h2>DataLayer Classes</h2>
+
+<blockquote>
+<p>Support loading and displaying data from any JSON-based object/collection</p>
+</blockquote>
+
+<h3>L.DataLayer</h3>
+
+<blockquote>
+<p>Display data values using L.RegularPolygonMarker instances.  In thematic mapping, this class displays data using proportional symbols.  </p>
+
+<p><em>NOTE:  If the location features are lines/polygons (e.g. GeoJSON), this class will use the centroid of each line/polygon to place each marker.  When dealing with line/polygon features, you must include a reference to the <a href="https://github.com/bjornharrtell/jsts/tree/master/lib">JavaScript Topology Suite (JSTS) JS files</a>.  These files are used to calculate centroids.  If these files are not included, the DataLayer class will fallback to using the center of the bounds of the layer's geometry.</em></p>
+</blockquote>
+
+<h4>Usage</h4>
+
+<p><code>L.DataLayer(&lt;Object&gt; data, &lt;DataLayer options&gt; options?);</code></p>
+
+<h4>Options</h4>
+
+<table>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>recordsField</td>
+<td>String</td>
+<td>'features'</td>
+<td>A pointer to the field in the input data that contains the records to be visualized.  Use dot notation to specify child properties (e.g. data.election.resultsByState)</td>
+</tr>
+<tr>
+<td>locationMode</td>
+<td>String</td>
+<td>'latlng' OR L.LocationModes.LATLNG</td>
+<td>The mode used to determine a location for each record.  Use a string or the <em>L.LocationModes</em> constant values</td>
+</tr>
+<tr>
+<td>latitudeField</td>
+<td>String</td>
+<td>'coordinates.1'</td>
+<td>The property of each record that contains the latitude <em>NOTE: Use with 'latlng' locationMode</em>
+</td>
+</tr>
+<tr>
+<td>longitudeField</td>
+<td>String</td>
+<td>'coordinates.0'</td>
+<td>The property of each record that contains the longitude <em>NOTE: Use with 'latlng' locationMode</em>
+</td>
+</tr>
+<tr>
+<td>codeField</td>
+<td>String</td>
+<td>null</td>
+<td>The property of each record that contains the code used to lookup a location <em>NOTE: Use with 'state', 'country', or 'lookup' locationMode values</em>
+</td>
+</tr>
+<tr>
+<td>geohashField</td>
+<td>String</td>
+<td>null</td>
+<td>The property of each record that contains the geohash used to determine a location <em>NOTE: Use with 'geohash' locationMode values</em>
+</td>
+</tr>
+<tr>
+<td>layerOptions</td>
+<td>Object</td>
+<td>null</td>
+<td>Default style - An object containing Leaflet L.Path style properties that will be used as the default style for DataLayer markers/polygons.  These properties will be overridden by the dynamicOptions.</td>
+</tr>
+<tr>
+<td>displayOptions</td>
+<td>Object</td>
+<td>null</td>
+<td>Dynamic styles - An object containing pointers to one or property values of each record with associated L.Path style properties and LinearFunction objects</td>
+</tr>
+<tr>
+<td>tooltipOptions</td>
+<td>Object</td>
+<td>null</td>
+<td>Options used to configure the tooltips that are displayed on mouseover (iconSize and iconAnchor)</td>
+</tr>
+<tr>
+<td>onEachRecord</td>
+<td>Function</td>
+<td>null</td>
+<td>A function that performs additional operations (e.g. binding a popup) on a created layer based on the record associated with that layer (similar to the L.GeoJSON onEachFeature method</td>
+</tr>
+<tr>
+<td>includeLayer</td>
+<td>Function</td>
+<td>null</td>
+<td>A function for determining whether or not the layer for a given record should be added to the map.</td>
+</tr>
+<tr>
+<td>getLocation</td>
+<td>Function</td>
+<td>null</td>
+<td>A function for getting a custom location from a record (e.g. looking up an address) <em>NOTE: Use with 'custom' locationMode value</em>
+</td>
+</tr>
+<tr>
+<td>locationLookup</td>
+<td>Object (GeoJSON FeatureCollection)</td>
+<td>null</td>
+<td>A GeoJSON FeatureCollection that will be used to lookup the location associated with a given record. This is useful when you have some data that maps to political/statistical boundaries other than US states or countries.  <em>NOTE: Use with 'lookup locationMode</em>
+</td>
+</tr>
+<tr>
+<td>includeBoundary</td>
+<td>Boolean</td>
+<td>null</td>
+<td>true/false - whether or not the boundary polygon should be displayed when displaying proportional symbols.  This is useful for identifying the boundary associated with each symbol.</td>
+</tr>
+</table><h4>displayOptions</h4>
+
+<blockquote>
+<p>The <em>displayOptions</em> option is used to define how data properties are dynamically mapped to display styles. It's a JavaScript object of key/value pairs that follows the pattern:</p>
+
+<div class="highlight"><pre><span class="p">{</span>
+    <span class="o">&lt;</span><span class="nx">data</span> <span class="nx">property</span> <span class="mi">1</span><span class="o">&gt;:</span> <span class="p">{</span>
+        <span class="nx">displayName</span><span class="o">:</span> <span class="o">&lt;</span><span class="nx">Human</span><span class="o">-</span><span class="nx">readable</span> <span class="nx">text</span> <span class="nx">describing</span> <span class="k">this</span> <span class="nx">property</span><span class="o">&gt;</span><span class="p">,</span>
+        <span class="nx">displayText</span><span class="o">:</span> <span class="o">&lt;</span><span class="nb">Function</span> <span class="k">for</span> <span class="nx">converting</span> <span class="nx">the</span> <span class="nx">value</span> <span class="nx">of</span> <span class="k">this</span> <span class="nx">property</span> <span class="nx">to</span> <span class="nx">a</span> <span class="nx">human</span><span class="o">-</span><span class="nx">readable</span> <span class="nx">value</span><span class="o">&gt;</span><span class="p">,</span>
+        <span class="c1">// Leaflet L.Path style properties with static values or L.LinearFunction instances</span>
+        <span class="c1">// or just functions for dynamic mapping</span>
+        <span class="nx">color</span><span class="o">:</span>  <span class="o">&lt;</span><span class="nx">Color</span> <span class="kd">function</span> <span class="nx">or</span> <span class="nx">basic</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">g</span><span class="p">.</span> <span class="nx">L</span><span class="p">.</span><span class="nx">HSLHueFunction</span><span class="p">)</span><span class="o">&gt;</span><span class="p">,</span>
+        <span class="nx">fillColor</span><span class="o">:</span>  <span class="o">&lt;</span><span class="nx">Color</span> <span class="kd">function</span> <span class="nx">or</span> <span class="nx">basic</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">g</span><span class="p">.</span> <span class="nx">L</span><span class="p">.</span><span class="nx">HSLHueFunction</span><span class="p">)</span><span class="o">&gt;</span><span class="p">,</span>
+        <span class="p">...</span>
+    <span class="p">},</span>
+    <span class="o">&lt;</span><span class="nx">data</span> <span class="nx">property</span> <span class="mi">2</span><span class="o">&gt;:</span> <span class="p">{</span>
+        <span class="nx">displayName</span><span class="o">:</span> <span class="p">...,</span>
+        <span class="nx">displayText</span><span class="o">:</span> <span class="p">...,</span>
+        <span class="p">...</span>
+    <span class="p">},</span>
+    <span class="p">...</span>
+    <span class="o">&lt;</span><span class="nx">data</span> <span class="nx">property</span> <span class="nx">X</span><span class="o">&gt;:</span> <span class="p">{</span>
+        <span class="nx">displayName</span><span class="o">:</span> <span class="p">...,</span>
+        <span class="nx">displayText</span><span class="o">:</span> <span class="p">...,</span>
+        <span class="p">...</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</blockquote>
+
+<h3>ChartDataLayers</h3>
+
+<blockquote>
+<p>Display data values using ChartMarker instances (inherits from L.DataLayer)</p>
+</blockquote>
+
+<h4>Usage</h4>
+
+<p><code>L.BarChartDataLayer(&lt;Object&gt; data, &lt;ChartDataLayer options&gt; options?);</code>
+<code>L.RadialBarChartDataLayer(&lt;Object&gt; data, &lt;ChartDataLayer options&gt; options?);</code>
+<code>L.PieChartDataLayer(&lt;Object&gt; data, &lt;ChartDataLayer options&gt; options?);</code>
+<code>L.CoxcombChartDataLayer(&lt;Object&gt; data, &lt;ChartDataLayer options&gt; options?);</code>
+<code>L.StackedRegularPolygonDataLayer(&lt;Object&gt; data, &lt;ChartDataLayer options&gt; options?);</code></p>
+
+<h4>Options</h4>
+
+<table><tr>
+<th>Option</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr></table><h3>L.ChoroplethDataLayer</h3>
+
+<blockquote>
+<p>Display data values using dynamically styled points, lines, and polygons (inherits from L.DataLayer)</p>
+</blockquote>
+
+<h4>Usage</h4>
+
+<p><code>L.ChoroplethDataLayer(&lt;Object&gt; data, &lt;DataLayer options&gt; options?);</code></p>
+
+<h4>Options</h4>
+
+<table><tr>
+<th>Option</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr></table><h3>L.MarkerDataLayer</h3>
+
+<blockquote>
+<p>Display data values using markers based on L.Icon or L.DivIcon icons (inherits from L.DataLayer)</p>
+</blockquote>
+
+<h4>Usage</h4>
+
+<p><code>L.MarkerDataLayer(&lt;Object&gt; data, &lt;MarkerDataLayer options&gt; options?);</code></p>
+
+<h4>Options</h4>
+
+<table><tr>
+<th>Option</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr></table><h2>Legends</h2>
+
+<blockquote>
+<p>Useful for visually informing users about the dynamic styles associated with your L.DataLayer instances</p>
+</blockquote>
+
+<h3>L.Control.Legend</h3>
+
+<blockquote>
+<p>Add this control to your map to automatically display a dynamic legend for any L.DataLayer based instance that you add to your map</p>
+</blockquote>
+
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">legendControl</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">L</span><span class="p">.</span><span class="nx">Control</span><span class="p">.</span><span class="nx">Legend</span><span class="p">();</span>
+
+<span class="nx">legendControl</span><span class="p">.</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span>
+</pre></div>
+
+<h3>L.DataLayer - <em>getLegend()</em>
+</h3>
+
+<blockquote>
+<p>Call <em>getLegend</em> on any L.DataLayer instance to get an HTML element that can be added to your page</p>
+</blockquote>
+
+<h4>Usage</h4>
+
+<p><code>layer.getLegend(&lt;Legend options&gt; options?);</code></p>
+
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">layer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">L</span><span class="p">.</span><span class="nx">DataLayer</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="p">{...});</span>
+
+<span class="nx">layer</span><span class="p">.</span><span class="nx">getLegend</span><span class="p">();</span> <span class="c1">// Returns HTML</span>
+</pre></div>
+
+<h4>Options</h4>
+
+<table>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>className</td>
+<td>String</td>
+<td>null</td>
+<td>A class name that will be added to the legend element, useful for adding custom CSS styles</td>
+</tr>
+<tr>
+<td>numSegments</td>
+<td>Number</td>
+<td>10</td>
+<td>The number of segments/bars to include in the legend element</td>
+</tr>
+<tr>
+<td>width</td>
+<td>Number</td>
+<td>100</td>
+<td>The desired width of the legend element</td>
+</tr>
+</table>
       </section>
     </div>
 
