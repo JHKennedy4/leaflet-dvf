@@ -102,11 +102,16 @@ To generate a legend, just call getLegend on any DataLayer, or use the provided 
 
 <ul>
 <li><a href="http://humangeo.github.com/leaflet-dvf/examples/html/colors.html">Color Functions</a></li>
+<li><a href="http://humangeo.github.com/leaflet-dvf/examples/html/geohashes.html">Geohashes</a></li>
+</ul><p>Mix:</p>
+
+<ul>
 <li><a href="http://humangeo.github.com/leaflet-dvf/examples/html/incomelevels.html">WorldBank and UN Data</a></li>
 <li><a href="http://humangeo.github.com/leaflet-dvf/examples/html/election2012.html">Election 2012 Polling</a></li>
 <li><a href="http://humangeo.github.com/leaflet-dvf/examples/html/election2012results.html">2008 vs 2012 Election Results</a></li>
 <li><a href="http://humangeo.github.com/leaflet-dvf/examples/html/uselectiondata.html">2008 Election Results</a></li>
-<li><a href="http://humangeo.github.com/leaflet-dvf/examples/html/geohashes.html">Geohashes</a></li>
+<li>
+<a href="http://humangeo.github.com/leaflet-dvf/examples/html/nlzip.html">Netherlands Population by ZIP 2</a> ** Thanks to Steven De Schrijver of <a href="http://www.conundra.eu">Conundra</a> for providing the example use case **</li>
 </ul><p>Tutorials coming soon to <a href="http://www.thehumangeo.com/">HumanGeo</a>'s <a href="http://blog.thehumangeo.com">blog</a></p>
 
 <h1>Documentation</h1>
@@ -203,14 +208,8 @@ To generate a legend, just call getLegend on any DataLayer, or use the provided 
 </table><h3>ChartMarkers</h3>
 
 <blockquote>
-<p>Display dynamic charts as markers</p>
+<p>Display dynamic charts (bar chart, radial bar chart, pie chart, coxcomb chart, etc.) as markers</p>
 </blockquote>
-
-<p>L.BarChartMarker
-L.RadialBarChartMarker
-L.PieChartMarker
-L.CoxcombChartMarker
-L.StackedRegularPolygonMarker</p>
 
 <h4>Usage</h4>
 
@@ -340,6 +339,19 @@ L.StackedRegularPolygonMarker</p>
 <td>Function</td>
 <td>null</td>
 <td>A function for post-processing an output value</td>
+</tr>
+</table><h4>Key Methods</h4>
+
+<table>
+<tr>
+<th>Method</th>
+<th>Usage</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>evaluate</td>
+<td><code>linearFunction.evaluate(&lt;value&gt;);</code></td>
+<td>Interpolates an output value based on the passed in input value</td>
 </tr>
 </table><h3>Color Functions</h3>
 
@@ -497,7 +509,7 @@ L.StackedRegularPolygonMarker</p>
 <td>recordsField</td>
 <td>String</td>
 <td>'features'</td>
-<td>A pointer to the field in the input data that contains the records to be visualized.  Use dot notation to specify child properties (e.g. data.election.resultsByState)</td>
+<td>A pointer to the field in the input data that contains the records to be visualized.  Use null when the data being passed in is the set of records to be visualized.  Use dot notation to specify child properties (e.g. data.election.resultsByState), see note below.</td>
 </tr>
 <tr>
 <td>locationMode</td>
@@ -583,13 +595,64 @@ L.StackedRegularPolygonMarker</p>
 <td>null</td>
 <td>true/false - whether or not the boundary polygon should be displayed when displaying proportional symbols.  This is useful for identifying the boundary associated with each symbol.</td>
 </tr>
-</table><h4>displayOptions</h4>
+</table><h4>Referencing Data Properties</h4>
+
+<p>Use dot notation to reference items in the passed in data object.  This applies to all field options (e.g. recordsField) as well as displayOptions.</p>
+
+<p>Given an object like:</p>
+
+<div class="highlight"><pre><span class="p">{</span>
+    <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">values</span><span class="o">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="nx">property1</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="nx">property2</span><span class="o">:</span> <span class="s1">'akdfljlkfds'</span><span class="p">,</span>
+                <span class="nx">property3</span><span class="o">:</span> <span class="mi">234</span><span class="p">,</span>
+                <span class="nx">location</span><span class="o">:</span> <span class="p">[</span><span class="o">-</span><span class="mf">1.234324</span><span class="p">,</span> <span class="mf">13.123213</span><span class="p">],</span>
+                <span class="nx">additional</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="nx">property1</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+                    <span class="nx">property2</span><span class="o">:</span> <span class="mi">56</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="p">...</span>
+            <span class="p">{</span>
+                <span class="nx">property1</span><span class="o">:</span> <span class="mi">34</span><span class="p">,</span>
+                <span class="nx">property2</span><span class="o">:</span> <span class="s1">'werewrwer'</span><span class="p">,</span>
+                <span class="nx">property3</span><span class="o">:</span> <span class="mi">56</span><span class="p">,</span>
+                <span class="nx">location</span><span class="o">:</span> <span class="p">[</span><span class="mf">5.435444</span><span class="p">,</span> <span class="mf">8.999345</span><span class="p">],</span>
+                <span class="nx">additional</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="nx">property1</span><span class="o">:</span> <span class="mi">88</span><span class="p">,</span>
+                    <span class="nx">property2</span><span class="o">:</span> <span class="mi">3</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>You might specify the following options:</p>
+
+<div class="highlight"><pre><span class="p">{</span>
+    <span class="nx">recordsField</span><span class="o">:</span> <span class="s1">'data.values'</span><span class="p">,</span>
+    <span class="nx">locationMode</span><span class="o">:</span> <span class="nx">L</span><span class="p">.</span><span class="nx">LocationModes</span><span class="p">.</span><span class="nx">LATLNG</span><span class="p">,</span>
+    <span class="nx">latitudeField</span><span class="o">:</span> <span class="s1">'location.1'</span>  <span class="c1">// Points to the second item in the location array</span>
+    <span class="nx">longitudeField</span><span class="o">:</span> <span class="s1">'location.0'</span> <span class="c1">// Points to the first item in the location array,</span>
+    <span class="nx">displayOptions</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s1">'additional.property1'</span><span class="o">:</span> <span class="p">{</span>
+            <span class="p">...</span> <span class="c1">// See displayOptions below</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<h4>displayOptions</h4>
 
 <blockquote>
 <p>The <em>displayOptions</em> option is used to define how data properties are dynamically mapped to display styles. It's a JavaScript object of key/value pairs that follows the pattern:</p>
+</blockquote>
 
 <div class="highlight"><pre><span class="p">{</span>
-    <span class="o">&lt;</span><span class="nx">data</span> <span class="nx">property</span> <span class="mi">1</span><span class="o">&gt;:</span> <span class="p">{</span>
+    <span class="o">&lt;</span><span class="nx">reference</span> <span class="nx">to</span> <span class="nx">data</span> <span class="nx">property</span> <span class="mi">1</span><span class="o">&gt;:</span> <span class="p">{</span>
         <span class="nx">displayName</span><span class="o">:</span> <span class="o">&lt;</span><span class="nx">Human</span><span class="o">-</span><span class="nx">readable</span> <span class="nx">text</span> <span class="nx">describing</span> <span class="k">this</span> <span class="nx">property</span><span class="o">&gt;</span><span class="p">,</span>
         <span class="nx">displayText</span><span class="o">:</span> <span class="o">&lt;</span><span class="nb">Function</span> <span class="k">for</span> <span class="nx">converting</span> <span class="nx">the</span> <span class="nx">value</span> <span class="nx">of</span> <span class="k">this</span> <span class="nx">property</span> <span class="nx">to</span> <span class="nx">a</span> <span class="nx">human</span><span class="o">-</span><span class="nx">readable</span> <span class="nx">value</span><span class="o">&gt;</span><span class="p">,</span>
         <span class="c1">// Leaflet L.Path style properties with static values or L.LinearFunction instances</span>
@@ -598,20 +661,19 @@ L.StackedRegularPolygonMarker</p>
         <span class="nx">fillColor</span><span class="o">:</span>  <span class="o">&lt;</span><span class="nx">Color</span> <span class="kd">function</span> <span class="nx">or</span> <span class="nx">basic</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">g</span><span class="p">.</span> <span class="nx">L</span><span class="p">.</span><span class="nx">HSLHueFunction</span><span class="p">)</span><span class="o">&gt;</span><span class="p">,</span>
         <span class="p">...</span>
     <span class="p">},</span>
-    <span class="o">&lt;</span><span class="nx">data</span> <span class="nx">property</span> <span class="mi">2</span><span class="o">&gt;:</span> <span class="p">{</span>
+    <span class="o">&lt;</span><span class="nx">reference</span> <span class="nx">to</span> <span class="nx">data</span> <span class="nx">property</span> <span class="mi">2</span><span class="o">&gt;:</span> <span class="p">{</span>
         <span class="nx">displayName</span><span class="o">:</span> <span class="p">...,</span>
         <span class="nx">displayText</span><span class="o">:</span> <span class="p">...,</span>
         <span class="p">...</span>
     <span class="p">},</span>
     <span class="p">...</span>
-    <span class="o">&lt;</span><span class="nx">data</span> <span class="nx">property</span> <span class="nx">X</span><span class="o">&gt;:</span> <span class="p">{</span>
+    <span class="o">&lt;</span><span class="nx">reference</span> <span class="nx">to</span> <span class="nx">data</span> <span class="nx">property</span> <span class="nx">X</span><span class="o">&gt;:</span> <span class="p">{</span>
         <span class="nx">displayName</span><span class="o">:</span> <span class="p">...,</span>
         <span class="nx">displayText</span><span class="o">:</span> <span class="p">...,</span>
         <span class="p">...</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
-</blockquote>
 
 <h3>ChartDataLayers</h3>
 
