@@ -45,9 +45,10 @@ The primary goal of the framework is to simplify data visualization and thematic
 <p>New marker types (see the markers example below):</p>
 
 <ul>
+<li>MapMarker - create an SVG-based map marker similar to Leaflet's image-based marker, but fully customizable via L.Path style properties</li>
 <li>RegularPolygonMarker - create N-sided shapes like triangles, squares, hexagons, etc.</li>
 <li>StarMarker - create stars with N points</li>
-<li>ChartMarkers - useful for analyzing multiple data properties at each location:
+<li>ChartMarkers - useful for displaying multiple data properties at each location:
 
 <ul>
 <li>BarChartMarker</li>
@@ -86,7 +87,12 @@ Polygons are indexed via a state or country code and lookups are created to map 
 <p>Automatic legend generation and a simple legend control.
 To generate a legend, just call getLegend on any DataLayer, or use the provided legend control and the legend will be displayed automatically.</p>
 
+<p><em>NOTE:  The dist folder includes a minified version of the full framework as well as a minified version of the code required to use the new markers</em>
+<em>Use leaflet-dvf.markers.min.js if you want to use the new markers without the rest of the framework</em></p>
+
 <h2>Examples</h2>
+
+<p><em>NOTE:  Most of these examples have multiple layers; use the layers control to see all of the layers</em></p>
 
 <p>New Marker Types:</p>
 
@@ -96,7 +102,8 @@ To generate a legend, just call getLegend on any DataLayer, or use the provided 
 
 <ul>
 <li><a href="http://humangeo.github.com/leaflet-dvf/examples/html/earthquakes.html">USGS Earthquakes</a></li>
-<li><a href="http://humangeo.github.com/leaflet-dvf/examples/html/meetups.html">Meetup Finder</a></li>
+<li>
+<a href="http://humangeo.github.com/leaflet-dvf/examples/html/meetups.html">Meetup Finder</a> - zoom to an area of interest, put in a Meetup topic, and click the search button</li>
 <li><a href="http://humangeo.github.com/leaflet-dvf/examples/html/weather.html">Weather</a></li>
 </ul><p>Choropleth Mapping:</p>
 
@@ -126,7 +133,59 @@ To generate a legend, just call getLegend on any DataLayer, or use the provided 
 <p>The framework adds several new marker types geared towards dynamic data visualization.  See the <a href="http://humangeo.github.com/leaflet-dvf/examples/html/markers.html">Markers</a> example for an illustration of each of these markers.</p>
 </blockquote>
 
-<h3>L.RegularPolygonMarker</h3>
+<h3>L.MapMarker</h3>
+
+<blockquote>
+<p>Creates an SVG-based map marker, similar to the default Leaflet image-based marker but fully customizable using the basic L.Path properties</p>
+</blockquote>
+
+<h4>Usage</h4>
+
+<p><code>L.MapMarker(&lt;LatLng&gt; LatLng, &lt;Marker options&gt; options?);</code></p>
+
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">marker</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">L</span><span class="p">.</span><span class="nx">MapMarker</span><span class="p">(</span><span class="k">new</span> <span class="nx">L</span><span class="p">.</span><span class="nx">LatLng</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">{</span>
+    <span class="nx">radius</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="c1">// L.Path style options</span>
+    <span class="p">...</span>
+<span class="p">});</span>
+
+<span class="nx">map</span><span class="p">.</span><span class="nx">addLayer</span><span class="p">(</span><span class="nx">marker</span><span class="p">);</span>
+</pre></div>
+
+<h4>Options</h4>
+
+<table>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>numberOfSides</td>
+<td>Number</td>
+<td>3</td>
+<td>If an inner radius is specified, then the marker will have a hole in center.  This property determines the shape of the hole.</td>
+</tr>
+<tr>
+<td>rotation</td>
+<td>Number</td>
+<td>0</td>
+<td>If an inner radius is specified, this controls the rotation of the hole in the center.</td>
+</tr>
+<tr>
+<td>radius OR radiusX, radiusY</td>
+<td>Number</td>
+<td>10</td>
+<td>The radius of the circular part of the marker, also adjusts the height of the marker</td>
+</tr>
+<tr>
+<td>innerRadius OR innerRadiusX, innerRadiusY</td>
+<td>Number</td>
+<td>null</td>
+<td>The inner radius of the marker hole in pixels.</td>
+</tr>
+</table><h3>L.RegularPolygonMarker</h3>
 
 <p><img alt="Bar Chart Marker" src="http://humangeo.github.com/leaflet-dvf/images/regularpolygonmarkers.png" width="290" height="72"></p>
 
@@ -298,7 +357,7 @@ To generate a legend, just call getLegend on any DataLayer, or use the provided 
 <td>chartOptions</td>
 <td>Object</td>
 <td>null</td>
-<td>A set of key/value paris that defines the options associated with each data property displayed by the marker.</td>
+<td>A set of key/value pairs that defines the options associated with each data property displayed by the marker.</td>
 </tr>
 </table><h2>Utility Functions</h2>
 
